@@ -17,5 +17,7 @@ public class DataResult<T> extends Result{
         super(success);
     }
 
-
+    public T getData() {
+        return data;
+    }
 }

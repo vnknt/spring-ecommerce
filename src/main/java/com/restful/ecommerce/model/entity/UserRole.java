@@ -1,14 +1,20 @@
 package com.restful.ecommerce.model.entity;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="roles")
 public class UserRole {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="roleId")
-    private int id;
+    private Long id;
 
     @Column(name = "roleName")
     private String name;

@@ -18,4 +18,12 @@ public class Result {
     public Result(boolean success){
         this.success=success;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
 }
