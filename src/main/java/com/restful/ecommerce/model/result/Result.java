@@ -1,11 +1,12 @@
 package com.restful.ecommerce.model.result;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-
+@EqualsAndHashCode
 public class Result {
     private String message;
     private boolean success;

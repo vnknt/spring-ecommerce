@@ -1,5 +1,8 @@
 package com.restful.ecommerce.model.result;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper = false)
 public class DataResult<T> extends Result{
     private T data;
 

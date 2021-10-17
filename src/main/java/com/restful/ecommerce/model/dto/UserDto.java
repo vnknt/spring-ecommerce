@@ -1,15 +1,15 @@
 package com.restful.ecommerce.model.dto;
 
 import com.restful.ecommerce.model.entity.UserRole;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode
+@Builder
 public class UserDto {
 
     private Long id;
