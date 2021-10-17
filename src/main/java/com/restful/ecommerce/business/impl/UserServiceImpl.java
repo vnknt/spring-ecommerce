@@ -7,6 +7,7 @@ import com.restful.ecommerce.model.entity.UserRole;
 import com.restful.ecommerce.model.result.*;
 import com.restful.ecommerce.repository.UserRepository;
 import com.restful.ecommerce.repository.UserRoleRepository;
+import com.restful.ecommerce.utils.UserDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
@@ -20,12 +21,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
-    private final ModelMapper modelMapper;
-
+    private final UserDtoConverter userDtoConverter;
 
     @Override
     public DataResult<UserDto> save(UserDto userDto) {
-        User user = modelMapper.map(userDto,User.class);
+        User user = userDtoConverter.convertToUser(userDto);
+
         try{
             userRepository.save(user);
 
@@ -40,10 +41,7 @@ public class UserServiceImpl implements UserService {
     public DataResult<List<UserDto>> getAll() {
 
         List<User> users = this.userRepository.findAll();
-        List<UserDto> userDtos = new ArrayList<>();
-        users.forEach(user->{
-            userDtos.add(modelMapper.map(user,UserDto.class));
-        });
+        List<UserDto> userDtos = userDtoConverter.convertList(users);
 
         return new SuccessDataResult<>(userDtos);
     }
@@ -51,7 +49,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public DataResult<UserDto> getByUsername(String username) {
         User user = this.userRepository.getByUsername(username);
-        UserDto userDto= modelMapper.map(user,UserDto.class);
+
+        if(user==null){
+            return new ErrorDataResult<>();
+        }
+
+        UserDto userDto= userDtoConverter.convert(user);
         return new SuccessDataResult<>(
             userDto
         );
