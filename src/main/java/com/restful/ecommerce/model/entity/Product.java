@@ -1,8 +1,12 @@
 package com.restful.ecommerce.model.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-
+@Data
+@Entity
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -20,8 +24,8 @@ public class Product {
     private int quantity;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Column(name = "type")
-    private Category type;
+    @OneToOne(fetch = FetchType.EAGER)
+    @Column(name = "category")
+    private Category category;
 
 }

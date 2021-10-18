@@ -12,6 +12,8 @@ public class SuccessDataResult<T> extends DataResult<T> {
     public SuccessDataResult(){
         super(true);
     }
-
+    public SuccessDataResult(String message){
+        super(null,true,message);
+    }
 
 }

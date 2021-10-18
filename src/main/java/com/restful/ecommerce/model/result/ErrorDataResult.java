@@ -10,5 +10,7 @@ public class ErrorDataResult<T> extends DataResult<T> {
     public ErrorDataResult(){
         super(false);
     }
-
+    public ErrorDataResult(String message){
+        super(null,false,message);
+    }
 }
