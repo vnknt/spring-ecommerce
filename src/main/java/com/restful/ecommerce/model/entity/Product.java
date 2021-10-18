@@ -22,6 +22,6 @@ public class Product {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Column(name = "type")
-    private ProductType type;
+    private Category type;
 
 }

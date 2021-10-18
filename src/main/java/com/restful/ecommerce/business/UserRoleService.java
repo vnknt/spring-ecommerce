@@ -6,4 +6,5 @@ import com.restful.ecommerce.model.result.DataResult;
 public interface UserRoleService {
     DataResult<UserRole> getRoleByName(String roleName );
     DataResult<UserRole> add(UserRole role);
+
 }

@@ -1,6 +1,6 @@
 package com.restful.ecommerce.model.dto;
 
-import com.restful.ecommerce.model.entity.ProductType;
+import com.restful.ecommerce.model.entity.Category;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,6 +12,6 @@ public class ProductDto {
     private String name;
     private BigDecimal price;
     private int quantity;
-    private ProductType type;
+    private Category type;
 
 }
