@@ -7,11 +7,11 @@ import com.restful.ecommerce.model.result.*;
 import com.restful.ecommerce.repository.CategoryRepository;
 import com.restful.ecommerce.repository.ProductRepository;
 import com.restful.ecommerce.utils.ProductConverter;
-import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
-
+@Service
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public DataResult<List<ProductDto>> getByCategory(String categoryName) {
+    public DataResult<List<ProductDto>> getByCategoryName(String categoryName) {
         List<Product> products = productRepository.getByCategory_CategoryName(categoryName);
         List<ProductDto> productDtos = productConverter.convertList(products);
         return new SuccessDataResult<>(productDtos);

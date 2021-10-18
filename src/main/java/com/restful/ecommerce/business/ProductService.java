@@ -11,7 +11,7 @@ public interface ProductService {
     DataResult<ProductDto> update(long id,ProductDto productDto);
     Result delete(long id);
     DataResult<List<ProductDto>> getAll();
-    DataResult<List<ProductDto>> getByCategory(String categoryName);
+    DataResult<List<ProductDto>> getByCategoryName(String categoryName);
     DataResult<ProductDto> getById(long id);
 
 }
