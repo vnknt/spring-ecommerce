@@ -2,26 +2,35 @@ package com.restful.ecommerce.business.impl;
 
 import com.restful.ecommerce.business.ProductService;
 import com.restful.ecommerce.model.dto.ProductDto;
+import com.restful.ecommerce.model.entity.Category;
 import com.restful.ecommerce.model.entity.Product;
 import com.restful.ecommerce.model.result.*;
 import com.restful.ecommerce.repository.CategoryRepository;
 import com.restful.ecommerce.repository.ProductRepository;
 import com.restful.ecommerce.utils.ProductConverter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 
 import java.util.List;
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository productRepository;
-    private CategoryRepository categoryRepository;
-    private ProductConverter productConverter;
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductConverter productConverter;
 
 
 
     @Override
-    public DataResult<ProductDto> add(ProductDto productDto) {
+    public DataResult<ProductDto> add(int categoryId,ProductDto productDto) {
         Product product = productConverter.convertToProduct(productDto);
+        Category category = categoryRepository.findById(categoryId).orElse(null);
+        if(category==null){
+            return new ErrorDataResult<>("Category does not exist");
+        }
+        product.setCategory(category);
         try {
             productRepository.save(product);
         }catch (Exception e){

@@ -24,8 +24,8 @@ public class Product {
     private int quantity;
 
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @Column(name = "category")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoryId")
     private Category category;
 
 }

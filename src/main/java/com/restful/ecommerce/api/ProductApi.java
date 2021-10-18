@@ -3,6 +3,7 @@ package com.restful.ecommerce.api;
 
 import com.restful.ecommerce.business.ProductService;
 import com.restful.ecommerce.model.dto.ProductDto;
+import com.restful.ecommerce.model.entity.Category;
 import com.restful.ecommerce.model.result.DataResult;
 import com.restful.ecommerce.model.result.Result;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,11 @@ public class ProductApi {
         );
     }
 
-    @PostMapping
-    public ResponseEntity<DataResult<ProductDto>> add(@RequestBody ProductDto productDto){
+    @PostMapping("/category/{categoryId}")
+    public ResponseEntity<DataResult<ProductDto>> add(@PathVariable int categoryId,@RequestBody ProductDto productDto){
+
         return ResponseEntity.ok(
-          this.productService.add(productDto)
+          this.productService.add(categoryId,productDto)
         );
     }
 

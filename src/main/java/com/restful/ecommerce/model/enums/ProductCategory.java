@@ -7,12 +7,12 @@ public enum ProductCategory {
     MEAT("MEAT"),
     CLEANING("CLEANING");
 
-    private final String name;
-    ProductCategory(String name) {
-        this.name = name;
+    private final String label;
+    ProductCategory(String label) {
+        this.label = label;
     }
 
-    public String getName() {
-        return name;
+    public String getLabel(){
+        return this.label;
     }
 }

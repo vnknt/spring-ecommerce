@@ -7,7 +7,7 @@ import com.restful.ecommerce.model.result.Result;
 import java.util.List;
 
 public interface ProductService {
-    DataResult<ProductDto> add(ProductDto productDto);
+    DataResult<ProductDto> add(int categoryId,ProductDto productDto);
     DataResult<ProductDto> update(long id,ProductDto productDto);
     Result delete(long id);
     DataResult<List<ProductDto>> getAll();

@@ -12,5 +12,5 @@ import javax.persistence.Column;
 public class CategoryDto {
 
     private int categoryId;
-    private int categoryName;
+    private String categoryName;
 }

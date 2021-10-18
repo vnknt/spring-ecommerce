@@ -6,12 +6,13 @@ import com.restful.ecommerce.model.entity.Product;
 import com.restful.ecommerce.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class ProductConverter {
     private final ModelMapper modelMapper;
