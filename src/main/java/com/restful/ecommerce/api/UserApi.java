@@ -5,6 +5,7 @@ import com.restful.ecommerce.model.dto.UserDto;
 import com.restful.ecommerce.model.result.DataResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,11 +19,9 @@ public class UserApi {
     private final UserService userService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<DataResult<List<UserDto>>> getAll(){
         return ResponseEntity.ok(userService.getAll());
     }
-
-
-
-
+    
 }
