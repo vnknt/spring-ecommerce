@@ -9,6 +9,12 @@ import com.restful.ecommerce.repository.UserRepository;
 import com.restful.ecommerce.repository.UserRoleRepository;
 import com.restful.ecommerce.utils.UserDtoConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
@@ -18,18 +24,19 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final UserDtoConverter userDtoConverter;
-
+    private final PasswordEncoder passwordEncoder;
     @Override
     public DataResult<UserDto> save(UserDto userDto) {
         User user = userDtoConverter.convertToUser(userDto);
-
+        user.setPassword(
+            passwordEncoder.encode(user.getPassword())
+        );
         try{
             userRepository.save(user);
-
         }catch (Exception e){
             return new ErrorDataResult<>(userDto,e.getMessage());
         }
@@ -79,6 +86,21 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
         userRepository.save(user);
         return new SuccessResult();
+
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User appUser = this.userRepository.getByUsername(s);
+        if(appUser == null){
+            throw new UsernameNotFoundException("User not found for given username");
+        }
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+
+        appUser.getRoles().forEach(role->{
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+        return new org.springframework.security.core.userdetails.User(appUser.getUsername(),appUser.getPassword(),authorities);
 
     }
 }
